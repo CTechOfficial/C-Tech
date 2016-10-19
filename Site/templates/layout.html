@@ -197,68 +197,74 @@
               </div>
 
               {% if user.isAdmin %}
-      			  <div role="tabpanel" class="tab-pane" id="admin">
+        <div role="tabpanel" class="tab-pane" id="admin">
 
-                      <div class="panel panel-default">
-                        <div class="panel-heading">
-                          <h3 class="panel-title">Administration</h3>
-                        </div>
-                        <div class="panel-body panel-table">
-                					<br>
-                          <div class="row">
-                            <div class="col-md-offset-1 col-md-10">
-                              <div class="panel panel-info">
-                                <div class="panel-heading">
-                                  <h4 class="panel-title">Liste des utilisateurs</h4>
-                                </div>
-                                <div class="panel-body panel-table">
-                                 <div class="form-group">
-                                    <table class="table">
-                                      <thead>
-                                        <tr>
-                                          <th>ID</th>
-                                          <th>NOM</th>
-                                          <th>PRENOM</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        {% for value in static('ListUser', 'getListUser') %}
-                                        <tr>
-                                          <th><center>{{ value.id|capitalize }}</center></th>
-                                          <td><center>{{ value.nom|capitalize }}</center></td>
-                                          <td><center>{{ value.prenom|capitalize }}</center></td>
-
-                                        </tr>
-                                        {% endfor %}
-                                      </tbody>
-                                    </table>
-
-
-
-
-
-
-
-                                </div>
-
-                              </div>
-                            </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Administration</h3>
+                  </div>
+                  <div class="panel-body panel-table">
+                    <br>
+                    <div class="row">
+                      <div class="col-md-offset-1 col-md-10">
+                        <div class="panel panel-info">
+                          <div class="panel-heading">
+                            <h4 class="panel-title">Liste des utilisateurs</h4>
                           </div>
+                          <div class="panel-body">
+                           <div class="form-group">
+                              <ul class="list-group">
+                                <li class="list-group-item list-group-item">
+                                  <div class="row">
+                                    <div class="col-md-2">
+                                      <b>NOM</b>
+                                    </div>
+                                    <div class="col-md-2">
+                                      <b>PRENOM</b>
+                                    </div>
+                                    <div class="col-md-4">
+                                      <b>MAIL</b>
+                                    </div>
+                                  </div>
+                                </li>
+                              </ul>
+                              <ul class="list-group">
+                              {% for value in static('ListUser', 'getListUser') %}
+                                <li class="list-group-item list-group-item">
+                                  <div class="row">
+                                    <div class="col-md-2">
+                                      {{ value.nom|capitalize }}
+                                    </div>
+                                    <div class="col-md-2">
+                                      {{ value.prenom|capitalize }}
+                                    </div>
+                                    <div class="col-md-4">
+                                      {{ value.mail|capitalize }}
+                                    </div>
+                                    <div class="col-md-3">
+                                      <button type="button" class="btn btn-info">
+                                        <span><b>Changer mot de passe</b></span>
+                                      </button>
+                                    </div>
+                                    <div class="col-md-1">
+                                      <button type="button" class="btn btn-danger" aria-label="Left Align">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                      </button>
+                                    </div>
+                                  </div>
+                                </li>
+                              {% endfor %}
+                              </ul>
 
-
-
-
-
-
-
-
-
+                          </div>
 
                         </div>
                       </div>
-
                     </div>
-      			  {% endif %}
+                  </div>
+                </div>
+              </div>      
+        {% endif %}
 			</div>
 
           </div>

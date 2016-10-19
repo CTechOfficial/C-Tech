@@ -22,7 +22,7 @@ class ListUser extends Model {
 			foreach($vars as $var)
 			{
 				$rtn[$class][$var->{'ID'}] = array(
-					'id' => $var->{'ID'},
+					'mail' => $var->{'MAIL'},
 					'nom' => $var->{'NOM'},
 					'prenom' => $var->{'PRENOM'}
 				);
