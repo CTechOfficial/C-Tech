@@ -36,6 +36,7 @@
               <li role="presentation"><a href="#palmares" aria-controls="palmares" role="tab" data-toggle="tab">Palmarès</a></li>
               <li role="presentation"><a href="#historique" aria-controls="historique" role="tab" data-toggle="tab">Historique</a></li>
               <li role="presentation"><a href="#details" aria-controls="details" role="tab" data-toggle="tab">Détails</a></li>
+              <li role="presentation"><a href="#compte" aria-controls="compte" role="tab" data-toggle="tab">Compte</a></li>
 			  {% if user.isAdmin %}
 			  <li role="presentation"><a href="#admin" aria-controls="details" role="tab" data-toggle="tab">Admin</a></li>
 			  {% endif %}
@@ -162,24 +163,102 @@
                 </div>
 
               </div>
-            
-			  {% if user.isAdmin %}
-			  <div role="tabpanel" class="tab-pane" id="admin">
+
+              <div role="tabpanel" class="tab-pane" id="compte">
 
                 <div class="panel panel-default">
                   <div class="panel-heading">
-                    <h3 class="panel-title">Administration</h3>
+                    <h3 class="panel-title">Informations du compte</h3>
                   </div>
-                  <div class="panel-body panel-table">
-					<ul>
-						<li>Lien1</li>
-						<li>Lien2</li>
-					</ul>
+                  <div class="panel-body">
+                    <h5>Nom d'utilisateur :</h5>
+                    <h5>Mot de passe :</h5>
+                    <h5>Prénom :</h5>
+                    <h5>Nom :</h5>
+                  </div>
+                </div>
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Réinitialiser son mot de passe</h3>
+                  </div>
+                  <div class="panel-body">
+
+<form action="reset.php" method="post">
+  <label>Adresse Email : </label>&nbsp;<input type="text" name="email" size="20"/><br />
+  <label>Nouveau mot de passe : </label>&nbsp;<input type="password" name="mdp" size="20"/><br />
+  <label>confirmation nouveau mot de passe : </label>&nbsp;<input type="password" name="confMdp" size="20"/><br />
+  <input type="hidden" name="q" value=""/>
+  <input type="submit" name="resetMdpForm" value=" Réinitialiser le mot de passe " />
+</form>
+
                   </div>
                 </div>
 
-              </div>		  
-			  {% endif %}
+              </div>
+
+              {% if user.isAdmin %}
+      			  <div role="tabpanel" class="tab-pane" id="admin">
+
+                      <div class="panel panel-default">
+                        <div class="panel-heading">
+                          <h3 class="panel-title">Administration</h3>
+                        </div>
+                        <div class="panel-body panel-table">
+                					<br>
+                          <div class="row">
+                            <div class="col-md-offset-1 col-md-10">
+                              <div class="panel panel-info">
+                                <div class="panel-heading">
+                                  <h4 class="panel-title">Liste des utilisateurs</h4>
+                                </div>
+                                <div class="panel-body panel-table">
+                                 <div class="form-group">
+                                    <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th>ID</th>
+                                          <th>NOM</th>
+                                          <th>PRENOM</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        {% for value in static('ListUser', 'getListUser') %}
+                                        <tr>
+                                          <th><center>{{ value.id|capitalize }}</center></th>
+                                          <td><center>{{ value.nom|capitalize }}</center></td>
+                                          <td><center>{{ value.prenom|capitalize }}</center></td>
+
+                                        </tr>
+                                        {% endfor %}
+                                      </tbody>
+                                    </table>
+
+
+
+
+
+
+
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+
+
+
+
+
+
+
+
+
+
+                        </div>
+                      </div>
+
+                    </div>
+      			  {% endif %}
 			</div>
 
           </div>
@@ -193,7 +272,7 @@
   <!-- /#wrapper -->
 
   <div id="ajax-spinner"><img src="{{ urlPath }}/img/ajax-spinner.svg"></div>
-  
+
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <script src="{{ urlPath }}/js/jquery.number.js"></script>

@@ -15,9 +15,9 @@ $slimConf = array(
 );
 
 $idiormConf = array(
-    'connection_string' => 'mysql:host=127.0.0.1;dbname=darties1',
+    'connection_string' => 'mysql:host=localhost;dbname=darties1',
     'username' => 'root',
-    'password' => '',
+    'password' => 'root',
 	'limit_clause_style' => '',
     'caching' => false,
     'return_result_sets' => true,
