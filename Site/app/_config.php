@@ -1,5 +1,7 @@
 <?php
 
+//test
+
 $slimConf = array(
 	'debug' => true,
 	'log.enable' => true,
