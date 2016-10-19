@@ -1,6 +1,6 @@
 <?php
 
-//test2
+//test3
 
 $slimConf = array(
 	'debug' => true,
