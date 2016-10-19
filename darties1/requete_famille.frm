@@ -1,0 +1,15 @@
+TYPE=VIEW
+query=select 0 AS `CODE_FAMILLE`,`darties1`.`dim_famille_produit`.`ID_FAMILLE_PRODUIT` AS `ID_FAMILLE_PRODUIT` from `darties1`.`dim_famille_produit` union all select `darties1`.`dim_famille_produit`.`ID_FAMILLE_PRODUIT` AS `CODE_FAMILLE`,`darties1`.`dim_famille_produit`.`ID_FAMILLE_PRODUIT` AS `ID_FAMILLE_PRODUIT` from `darties1`.`dim_famille_produit` order by `CODE_FAMILLE`
+md5=c9356099c6fae4a0feee976031e07e28
+updatable=0
+algorithm=0
+definer_user=darties1
+definer_host=localhost
+suid=2
+with_check_option=0
+timestamp=2016-10-07 09:42:46
+create-version=1
+source=SELECT 0 AS CODE_FAMILLE, ID_FAMILLE_PRODUIT\nFROM dim_famille_produit\nUNION ALL\nSELECT dim_famille_produit.ID_FAMILLE_PRODUIT as CODE_FAMILLE, dim_famille_produit.ID_FAMILLE_PRODUIT\nFROM dim_famille_produit\nORDER BY 1
+client_cs_name=cp850
+connection_cl_name=cp850_general_ci
+view_body_utf8=select 0 AS `CODE_FAMILLE`,`darties1`.`dim_famille_produit`.`ID_FAMILLE_PRODUIT` AS `ID_FAMILLE_PRODUIT` from `darties1`.`dim_famille_produit` union all select `darties1`.`dim_famille_produit`.`ID_FAMILLE_PRODUIT` AS `CODE_FAMILLE`,`darties1`.`dim_famille_produit`.`ID_FAMILLE_PRODUIT` AS `ID_FAMILLE_PRODUIT` from `darties1`.`dim_famille_produit` order by `CODE_FAMILLE`

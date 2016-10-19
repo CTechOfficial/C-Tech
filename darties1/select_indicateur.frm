@@ -1,0 +1,15 @@
+TYPE=VIEW
+query=select 0 AS `CODE`,\'Tous les indicateurs\' AS `LIB_IND` union all select 1 AS `1`,\'Chiffres d\\\'affaires\' AS `Chiffres d\'affaires` union all select 2 AS `2`,\'Nombres de ventes\' AS `Nombres de ventes` union all select 3 AS `3`,\'Taux de marges\' AS `Taux de marges` order by `CODE`
+md5=f4be9601055cd17be3c43a277fc314e9
+updatable=0
+algorithm=0
+definer_user=darties1
+definer_host=localhost
+suid=2
+with_check_option=0
+timestamp=2016-10-07 09:42:46
+create-version=1
+source=SELECT 0 as CODE, \'Tous les indicateurs\' AS LIB_IND\nUNION ALL\nSELECT 1, \'Chiffres d\'\'affaires\' \nUNION ALL\nSELECT 2, \'Nombres de ventes\' \nUNION ALL\nSELECT 3, \'Taux de marges\' \nORDER BY 1
+client_cs_name=cp850
+connection_cl_name=cp850_general_ci
+view_body_utf8=select 0 AS `CODE`,\'Tous les indicateurs\' AS `LIB_IND` union all select 1 AS `1`,\'Chiffres d\\\'affaires\' AS `Chiffres d\'affaires` union all select 2 AS `2`,\'Nombres de ventes\' AS `Nombres de ventes` union all select 3 AS `3`,\'Taux de marges\' AS `Taux de marges` order by `CODE`

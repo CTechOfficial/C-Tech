@@ -1,0 +1,15 @@
+TYPE=VIEW
+query=select `darties1`.`utilisateur`.`ID` AS `CODE`,`darties1`.`utilisateur`.`USERNAME` AS `USERNAME` from `darties1`.`utilisateur` order by `darties1`.`utilisateur`.`ID`
+md5=593e7bf8fdeffc9bf588cf165c6e7f5d
+updatable=1
+algorithm=0
+definer_user=darties1
+definer_host=localhost
+suid=2
+with_check_option=0
+timestamp=2016-10-07 09:42:47
+create-version=1
+source=SELECT ID AS CODE, USERNAME FROM utilisateur\nORDER BY 1
+client_cs_name=cp850
+connection_cl_name=cp850_general_ci
+view_body_utf8=select `darties1`.`utilisateur`.`ID` AS `CODE`,`darties1`.`utilisateur`.`USERNAME` AS `USERNAME` from `darties1`.`utilisateur` order by `darties1`.`utilisateur`.`ID`

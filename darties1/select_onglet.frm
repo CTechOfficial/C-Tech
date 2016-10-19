@@ -1,0 +1,15 @@
+TYPE=VIEW
+query=select 1 AS `CODE`,\'Acceuil\' AS `LIB_ONGLET` union all select 2 AS `2`,\'Historique\' AS `Historique` union all select 3 AS `3`,\'Palmarès\' AS `Palmarès` union all select 4 AS `4`,\'Détail\' AS `Détail` order by `CODE`
+md5=02a2f542c89802bbeaaf941ba6baf5e3
+updatable=0
+algorithm=0
+definer_user=darties1
+definer_host=localhost
+suid=2
+with_check_option=0
+timestamp=2016-10-07 09:42:46
+create-version=1
+source=SELECT 1 AS CODE, \'Acceuil\' AS LIB_ONGLET UNION ALL\nSELECT 2, \'Historique\' UNION ALL\nSELECT 3, \'Palmarès\' UNION ALL\nSELECT 4, \'Détail\' ORDER BY 1
+client_cs_name=cp850
+connection_cl_name=cp850_general_ci
+view_body_utf8=select 1 AS `CODE`,\'Acceuil\' AS `LIB_ONGLET` union all select 2 AS `2`,\'Historique\' AS `Historique` union all select 3 AS `3`,\'Palmar├¿s\' AS `Palmar├¿s` union all select 4 AS `4`,\'D├®tail\' AS `D├®tail` order by `CODE`
