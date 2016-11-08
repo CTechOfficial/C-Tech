@@ -1,12 +1,10 @@
 <?php
+
 namespace App;
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
 define('_', dirname(__DIR__));
-require('../vendor/autoload.php');
-require('../app/_config.php');
+require _.'/vendor/autoload.php';
+require _.'/app/_config.php';
 
 date_default_timezone_set('Europe/Paris');
 
@@ -67,7 +65,7 @@ $app->get('/logout', function() use ($app) {
 });
 
 $app->get('/test', function() use ($app) {
-	var_dump(SASMacroHistorique::call(
+	var_dump(MacroHistorique::call(
 		array ( 'I_ENSEIGNE' => 0, 'I_INDICATEUR' => 0, 'I_CUMUL' => 0, 'I_FAMPROD' => 0, 'I_TEMPS' => '2015_1_2015', 'I_REGION' => 508)
 	));
 });
@@ -79,25 +77,25 @@ $app->group('/ajax', function() use ($app) {
 
 	$app->group('/tab', function() use ($app) {
 
-		$app->post('/accueil', function() use ($app) {
-			//echo json_encode(array('ajax_accueil_table' => print_r($app->request->post(), true)));
-			echo SASMacroAccueil::call($app->request->post());
-		});
+    $app->post('/accueil', function() use ($app) {
+      echo json_encode(MacroAccueil::call($app->request->post()));
+    });
 
 		$app->post('/historique', function() use ($app) {
-			echo SASMacroHistorique::call($app->request->post());
+			echo json_encode(MacroHistorique::call($app->request->post()));
 		});
 
-		$app->post('/palmares', function() use ($app) {
+	/*	$app->post('/palmares', function() use ($app) {
 			echo SASMacroPalmares::call($app->request->post());
 		});
 
 		$app->post('/details', function() use ($app) {
 			echo SASMacroDetails::call($app->request->post());
 		});
-
+*/
 	});
 });
 
 // Run app
 $app->run();
+?>

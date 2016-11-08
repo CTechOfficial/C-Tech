@@ -1,7 +1,5 @@
 <?php
 
-//test5
-
 $slimConf = array(
 	'debug' => true,
 	'log.enable' => true,
@@ -17,9 +15,9 @@ $slimConf = array(
 );
 
 $idiormConf = array(
-    'connection_string' => 'mysql:host=localhost;dbname=darties1',
+    'connection_string' => 'mysql:host=127.0.0.1;dbname=darties1',
     'username' => 'root',
-    'password' => 'dcvdfvg',
+    'password' => '',
 	'limit_clause_style' => '',
     'caching' => false,
     'return_result_sets' => true,
