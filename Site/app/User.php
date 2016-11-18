@@ -102,4 +102,60 @@ class User extends Model
 			
 		return false;
 	}
+
+	public static function update_admin($id,$pwd){
+
+		$update=User::find_one($id);
+		$update->set('password',$pwd);
+		$update->save();
+	}
+
+	public static function loadInfoUser() {
+		$app = App::getInstance();
+		
+		$vars = ORM::for_table('utilisateur')->where('ID',$app->getCookie('USER_ID'))->find_one();
+			
+		$rtn['infoUser'] = array();
+		$rtn['infoUser'][1] = array(
+			'username' => $vars->{'USERNAME'},
+			'nom' => $vars->{'NOM'},
+			'prenom' => $vars->{'PRENOM'},
+			'password' => $vars->{'PASSWORD'}
+		);
+			
+		return $rtn['infoUser'];
+	}
+
+	public static function update_utilisateur(){
+		$app = App::getInstance();
+
+		$update=User::find_one($app->getCookie('USER_ID'));
+		$mot_de_passe = $app->getCookie('USER_MDP');
+		
+
+		if ($app->request->post('oldpasswd') != null) {
+			$oldpassword = $app->request->post('oldpasswd');
+		}
+		if ( $app->request->post('mdp')!= null) {
+			$new_mdp = $app->request->post('mdp');
+		}
+		if ( $app->request->post('confMdp') != null) {
+			$new_conf_mdp = $app->request->post('confMdp');
+		}
+		
+		
+
+		if ($mot_de_passe == md5($oldpassword)) {
+			if ($new_mdp == $new_conf_mdp) {
+				$update->set('password',$new_mdp);
+				$update->save();
+			}
+			else{
+				echo "<script>alert('Les deux mot de passe saisie ne correspondent pas')</script>";
+			}
+		}
+		else{
+				echo "<script>alert('Votre ancien mot de passe incorrect')</script>";
+		}
+	}
 }

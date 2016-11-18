@@ -4,7 +4,7 @@ namespace App;
 use \App\ORMWrapper as ORMWrapper;
 
 class Model extends \Model {
-
+	
 	public static function factory($class_name, $connection_name = null) {
 		//$class_name = self::$auto_prefix_models . $class_name;
 		$table_name = static::_get_table_name($class_name);
@@ -21,4 +21,5 @@ class Model extends \Model {
 		$wrapper->use_id_column(self::_get_id_column_name($class_name));
 		return $wrapper;
 	}
+
 }

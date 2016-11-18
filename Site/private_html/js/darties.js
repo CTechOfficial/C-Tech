@@ -81,47 +81,7 @@ $(document)
 			url: window.location.pathname+'index.php/ajax/tab/'+tab+'?TIME='+(new Date()).getTime(),
 		})
 		.done(function(response) {
-			$.each(response, function(key,value){
-				//$('#'+key).html(value);
-				if (key != 'ajax_accueil_imgsrc') {
-					$('#'+key).html(value);
-					if (key.slice(-5) == 'table') {
-						
-						$('#'+key+' table').tablesorter();
-						
-						$('#'+key+' table td[data-mnt]').each(function() {
-							if($(this).html() != '—') {
-								$(this).html($.number($(this).data('mnt'), 2)+'&nbsp;€');
-							}
-						});
-						
-						$('#'+key+' table td[data-op="%"]').each(function() {
-							var reel = $(this).prev().data('mnt');
-							var obj = $(this).prev().prev().data('mnt');
-							if (reel == '—' || obj == '—') {
-								$(this).html('—');
-							}
-							else {
-								var per = (obj/reel*100);
-								$(this).html($.number(per, 2)+'&nbsp;%');
-								if (per >= 105) {
-									$(this).addClass('bg-success');
-								}
-								else if (per <= 95) {
-									$(this).addClass('bg-danger');
-								}
-								else {
-									$(this).addClass('bg-warning');
-								}
-							}
-						});
-						
-					}				
-				}
-				else {
-					//$('#ajax_accueil_img').attr('src', value);
-				}
-			});
+			$('#ajax_'+tab+'_table').html(response);
 		});
 	});
 	

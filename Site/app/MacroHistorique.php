@@ -174,7 +174,7 @@ $db->exec($sql);
 		$sql = "CREATE TEMPORARY TABLE HISTORIQUE2".$user." AS SELECT * FROM HISTORIQUE1".$user.";";
 		$db->exec($sql);
 
-		$sql = "CREATE TEMPORARY TABLE HISTORIQUETest".$user." as
+		$sql = "CREATE TEMPORARY TABLE HISTORIQUEFinal".$user." as
 		select * from HISTORIQUE1".$user."
 		Union All
 		select 'Total' as Total,
@@ -201,8 +201,7 @@ $db->exec($sql);
 		from HISTORIQUE2".$user."
 		;";
 		$db->exec($sql);
-		$data = ORM::for_table('HISTORIQUETest'.$user)->find_array();
-		var_dump($data);
+		$data = ORM::for_table('HISTORIQUEFinal'.$user)->find_array();
 		$table = $app->view()->render("/macro/historique/table.html", array('data' => $data));
 		return $table;
  	}

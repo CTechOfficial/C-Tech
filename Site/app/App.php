@@ -12,4 +12,6 @@ Class App extends \Slim\Slim {
 		
         return parent::render($template, $data, $status);
     }
+
+    
 }

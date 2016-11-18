@@ -4,6 +4,7 @@ namespace App;
 
 class ListUser extends Model {
 
+
 	public static $_table   = 'utilisateur';
 	
 
@@ -23,13 +24,17 @@ class ListUser extends Model {
 			{
 				$rtn[$class][$var->{'ID'}] = array(
 					'id' => $var->{'ID'},
+					'mail' => $var->{'MAIL'},
 					'nom' => $var->{'NOM'},
-					'prenom' => $var->{'PRENOM'}
+					'prenom' => $var->{'PRENOM'},
+					'password' => $var->{'PASSWORD'}
 				);
 			}
 		}
 
 		return $rtn[$class];
 	}
+
+	
 
 }

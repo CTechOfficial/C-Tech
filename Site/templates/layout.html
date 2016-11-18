@@ -1,286 +1,284 @@
 <!DOCTYPE html>
 <html lang="fr">
-
-<head>
-
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Darties report system</title>
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <link href="{{ urlPath }}/css/bootstrap-tour.css" rel="stylesheet">
-  <link href="{{ urlPath }}/css/darties.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-  <div id="wrapper">
-
-    <!-- header -->
-    <header class="navbar navbar-default navbar-static-top">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="logo col-sm-2">
-            <img src="{{ urlPath }}/img/logo_100.png" alt="" />
-          </div>
-          <div class="col-sm-10 col-bottom">
-            <!-- Nav tabs -->
-            <ul class="nav nav-tabs" id="main-tabs" role="tablist" style="float:left">
-              <li role="presentation" class="active"><a href="#accueil" aria-controls="accueil" role="tab" data-toggle="tab">Accueil</a></li>
-              <li role="presentation"><a href="#palmares" aria-controls="palmares" role="tab" data-toggle="tab">Palmarès</a></li>
-              <li role="presentation"><a href="#historique" aria-controls="historique" role="tab" data-toggle="tab">Historique</a></li>
-              <li role="presentation"><a href="#details" aria-controls="details" role="tab" data-toggle="tab">Détails</a></li>
-              <li role="presentation"><a href="#compte" aria-controls="compte" role="tab" data-toggle="tab">Compte</a></li>
-			  {% if user.isAdmin %}
-			  <li role="presentation"><a href="#admin" aria-controls="details" role="tab" data-toggle="tab">Admin</a></li>
-			  {% endif %}
-            </ul>
-            <ul class="nav nav-tabs" id="right-tabs" style="float:right">
-              <li><a href="#" id="print"><span class="glyphicon glyphicon-print"></span></a></li>
-              <li><a href="#" id="send"><span class="glyphicon glyphicon-send"></span></a></li>
-              <li><a href="{{ urlPath }}/index.php/logout" id="logout"><span class="glyphicon glyphicon-off"></span></a></li>
-			  <li><a href="#" id="help"><span class="glyphicon glyphicon-question-sign"></span></a></li>
-            </ul>
-          </div>
-          <div class="col-sm-8" style="float:left">
-            <h3>Tableau de bord <small>{{ user.posteLibelle }}</small></h3>
-          </div>
-          <div class="col-sm-2" style="float:right">
-            <table class="small table table-condensed" id="datemaj">
-              <tbody>
-                <tr>
-                  <th>Date</th>
-                  <td>{{ "now"|date("d/m/Y") }}</td>
-                </tr>
-                <tr>
-                  <th>Date MAJ</th>
-                  <td>{{ date_maj |date("d/m/Y") }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-2">
-		  {% include '/filtres.html' %}
-        </div>
-        <div class="col-sm-10">
-          <div>
-
-            <!-- Tab panes -->
-            <div class="tab-content">
-              <div role="tabpanel" class="tab-pane active" id="accueil">
-
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Darties report system</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+        <link href="{{ urlPath }}/css/bootstrap-tour.css" rel="stylesheet">
+        <link href="{{ urlPath }}/css/darties.css" rel="stylesheet">
+    </head>
+    <body>
+        <div id="wrapper">
+        <!-- header -->
+        <header class="navbar navbar-default navbar-static-top">
+            <div class="container-fluid">
                 <div class="row">
-                  <div class="col-sm-4">
-                    <img width="100%" src="{{ urlPath }}/img/departements_de_france_map.svg" id="ajax_accueil_img" alt="" style="border: 1px solid black">
-                  </div>
-                  <div class="col-sm-8">
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <h3 class="panel-title" id="ajax_accueil_tabtitle"></h3>
-                      </div>
-                      <div class="panel-body panel-table" id="ajax_accueil_table">
-                      </div>
+                    <div class="logo col-sm-2">
+                        <img src="{{ urlPath }}/img/logo_100.png" alt="" />
                     </div>
-
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <h3 class="panel-title">Informations</h3>
-                      </div>
-                      <div class="panel-body">
-                        <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc facilisis facilisis massa, congue tristique justo convallis aliquet. Pellentesque laoreet, purus sit amet blandit fringilla, eros sapien euismod lacus, sit amet tincidunt justo libero tempus
-                          eros. Proin mattis leo arcu, et luctus lectus imperdiet et. In commodo ipsum ut aliquam malesuada. Cras dapibus volutpat velit a gravida. Integer volutpat pulvinar turpis, a sodales magna lacinia at. Praesent dignissim efficitur
-                          quam eu elementum.
-                        </p>
-                        <p>
-                          Phasellus bibendum odio erat, quis tristique ipsum porta at. Aliquam erat volutpat. Donec nulla velit, bibendum ac felis quis, malesuada commodo metus. Ut eget consequat dolor. In auctor non ex eget finibus. Proin sit amet nisi enim. Class aptent taciti
-                          sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec vitae nisl finibus, accumsan nunc et, vulputate nibh. Cras quis neque varius, ultrices nunc interdum, molestie odio. In vitae sollicitudin nisl.
-                        </p>
-                      </div>
+                    <div class="col-sm-10 col-bottom">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" id="main-tabs" role="tablist" style="float:left">
+                            <li role="presentation" class="active"><a href="#accueil" aria-controls="accueil" role="tab" data-toggle="tab">Accueil</a></li>
+                            <li role="presentation"><a href="#palmares" aria-controls="palmares" role="tab" data-toggle="tab">Palmarès</a></li>
+                            <li role="presentation"><a href="#historique" aria-controls="historique" role="tab" data-toggle="tab">Historique</a></li>
+                            <li role="presentation"><a href="#details" aria-controls="details" role="tab" data-toggle="tab">Détails</a></li>
+                            <li role="presentation"><a href="#compte" aria-controls="compte" role="tab" data-toggle="tab">Compte</a></li>
+                            {% if user.isAdmin %}
+                            <li role="presentation"><a href="#admin" aria-controls="details" role="tab" data-toggle="tab">Admin</a></li>
+                            {% endif %}
+                        </ul>
+                        <ul class="nav nav-tabs" id="right-tabs" style="float:right">
+                            <li><a href="#" id="print"><span class="glyphicon glyphicon-print"></span></a></li>
+                            <li><a href="#" id="send"><span class="glyphicon glyphicon-send"></span></a></li>
+                            <li><a href="{{ urlPath }}/index.php/logout" id="logout"><span class="glyphicon glyphicon-off"></span></a></li>
+                            <li><a href="#" id="help"><span class="glyphicon glyphicon-question-sign"></span></a></li>
+                        </ul>
                     </div>
-
-                  </div>
+                    <div class="col-sm-8" style="float:left">
+                        <h3>Tableau de bord <small>{{ user.posteLibelle }}</small></h3>
+                    </div>
+                    <div class="col-sm-2" style="float:right">
+                        <table class="small table table-condensed" id="datemaj">
+                            <tbody>
+                                <tr>
+                                    <th>Date</th>
+                                    <td>{{ "now"|date("d/m/Y") }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Date MAJ</th>
+                                    <td>{{ date_maj |date("d/m/Y") }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-              </div>
-
-              <div role="tabpanel" class="tab-pane" id="palmares">
-
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title" id="ajax_palmares_tabtitle"></h3>
-                  </div>
-                  <div class="panel-body panel-table" id="ajax_palmares_table">
-                  </div>
+            </div>
+        </header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2">
+                    {% include '/filtres.html' %}
                 </div>
-
-              </div>
-
-              <div role="tabpanel" class="tab-pane" id="historique">
-
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title" id="ajax_historique_tabtitle"></h3>
-                  </div>
-                  <div class="panel-body  panel-table" id="ajax_historique_table">
-                  </div>
-                </div>
-
-              </div>
-
-              <div role="tabpanel" class="tab-pane" id="details">
-
-                <div class="row no-print">
-
-                  <div class="col-sm-4" id="ajax_details_ca">
-                  </div>
-
-                  <div class="col-sm-4" id="ajax_details_ventes">
-                  </div>
-
-                  <div class="col-sm-4" id="ajax_details_marge">
-                  </div>
-
-                </div>
-
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title" id="ajax_details_tabtitle"></h3>
-                  </div>
-                  <div class="panel-body panel-table" id="ajax_details_table">
-                  </div>
-                </div>
-
-              </div>
-
-              <div role="tabpanel" class="tab-pane" id="compte">
-
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">Informations du compte</h3>
-                  </div>
-                  <div class="panel-body">
-                    <h5>Nom d'utilisateur :</h5>
-                    <h5>Mot de passe :</h5>
-                    <h5>Prénom :</h5>
-                    <h5>Nom :</h5>
-                  </div>
-                </div>
-                <div class="panel panel-default">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">Réinitialiser son mot de passe</h3>
-                  </div>
-                  <div class="panel-body">
-
-<form action="reset.php" method="post">
-  <label>Adresse Email : </label>&nbsp;<input type="text" name="email" size="20"/><br />
-  <label>Nouveau mot de passe : </label>&nbsp;<input type="password" name="mdp" size="20"/><br />
-  <label>confirmation nouveau mot de passe : </label>&nbsp;<input type="password" name="confMdp" size="20"/><br />
-  <input type="hidden" name="q" value=""/>
-  <input type="submit" name="resetMdpForm" value=" Réinitialiser le mot de passe " />
-</form>
-
-                  </div>
-                </div>
-
-              </div>
-
-              {% if user.isAdmin %}
-      			  <div role="tabpanel" class="tab-pane" id="admin">
-
-                      <div class="panel panel-default">
-                        <div class="panel-heading">
-                          <h3 class="panel-title">Administration</h3>
-                        </div>
-                        <div class="panel-body panel-table">
-                					<br>
-                          <div class="row">
-                            <div class="col-md-offset-1 col-md-10">
-                              <div class="panel panel-info">
-                                <div class="panel-heading">
-                                  <h4 class="panel-title">Liste des utilisateurs</h4>
+                <div class="col-sm-10">
+                    <div>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="accueil">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <img width="100%" src="{{ urlPath }}/img/departements_de_france_map.svg" id="ajax_accueil_img" alt="" style="border: 1px solid black">
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title" id="ajax_accueil_tabtitle"></h3>
+                                            </div>
+                                            <div class="panel-body panel-table" id="ajax_accueil_table">
+                                                
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h3 class="panel-title">Informations</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc facilisis facilisis massa, congue tristique justo convallis aliquet. Pellentesque laoreet, purus sit amet blandit fringilla, eros sapien euismod lacus, sit amet tincidunt justo libero tempus
+                                                    eros. Proin mattis leo arcu, et luctus lectus imperdiet et. In commodo ipsum ut aliquam malesuada. Cras dapibus volutpat velit a gravida. Integer volutpat pulvinar turpis, a sodales magna lacinia at. Praesent dignissim efficitur
+                                                    quam eu elementum.
+                                                </p>
+                                                <p>
+                                                    Phasellus bibendum odio erat, quis tristique ipsum porta at. Aliquam erat volutpat. Donec nulla velit, bibendum ac felis quis, malesuada commodo metus. Ut eget consequat dolor. In auctor non ex eget finibus. Proin sit amet nisi enim. Class aptent taciti
+                                                    sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec vitae nisl finibus, accumsan nunc et, vulputate nibh. Cras quis neque varius, ultrices nunc interdum, molestie odio. In vitae sollicitudin nisl.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="panel-body panel-table">
-                                 <div class="form-group">
-                                    <table class="table">
-                                      <thead>
-                                        <tr>
-                                          <th>ID</th>
-                                          <th>NOM</th>
-                                          <th>PRENOM</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>
-                                        {% for value in static('ListUser', 'getListUser') %}
-                                        <tr>
-                                          <th><center>{{ value.id|capitalize }}</center></th>
-                                          <td><center>{{ value.nom|capitalize }}</center></td>
-                                          <td><center>{{ value.prenom|capitalize }}</center></td>
-
-                                        </tr>
-                                        {% endfor %}
-                                      </tbody>
-                                    </table>
-
-
-
-
-
-
-
-                                </div>
-
-                              </div>
                             </div>
-                          </div>
-
-
-
-
-
-
-
-
-
-
+                            <div role="tabpanel" class="tab-pane" id="palmares">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title" id="ajax_palmares_tabtitle"></h3>
+                                    </div>
+                                    <div class="panel-body panel-table" id="ajax_palmares_table">
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="historique">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title" id="ajax_historique_tabtitle">Historiques</h3>
+                                    </div>
+                                    <div class="panel-body  panel-table" id="ajax_historique_table">
+                                           
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="details">
+                                <div class="row no-print">
+                                    <div class="col-sm-4" id="ajax_details_ca">
+                                    </div>
+                                    <div class="col-sm-4" id="ajax_details_ventes">
+                                    </div>
+                                    <div class="col-sm-4" id="ajax_details_marge">
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title" id="ajax_details_tabtitle"></h3>
+                                    </div>
+                                    <div class="panel-body panel-table" id="ajax_details_table">
+                                    </div>
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="compte">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Informations du compte</h3>
+                                    </div>
+                                    {% for value in static('User', 'loadInfoUser') %}
+                                    <div class="panel-body">
+                                        <h5>Nom d'utilisateur : {{ value.username|capitalize }}</h5>
+                                        <h5>Mot de passe : <input type="password" name="pass" id="pass" value="{{ value.password|capitalize }}" disabled/></h5>
+                                        <h5>Prénom : {{ value.prenom|capitalize }}</h5>
+                                        <h5>Nom : {{ value.nom|capitalize }}</h5>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Réinitialiser son mot de passe</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <form action="{{ urlPath }}/index.php/update" method="post">
+                                            <label>Ancien mot de passe : </label>&nbsp;<input type="text" name="oldpasswd" size="20" required /><br />
+                                            <label>Nouveau mot de passe : </label>&nbsp;<input type="password" name="mdp" size="20" required/><br />
+                                            <label>confirmation nouveau mot de passe : </label>&nbsp;<input type="password" name="confMdp" size="20" required/><br />
+                                            <input type="hidden" name="q" value=""/>
+                                            <input type="submit" name="resetMdpForm" value=" Réinitialiser le mot de passe " />
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if user.isAdmin %}
+                            <div role="tabpanel" class="tab-pane" id="admin">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h3 class="panel-title">Administration</h3>
+                                    </div>
+                                    <div class="panel-body panel-table">
+                                        <br>
+                                        <div class="row">
+                                            <div class="col-md-offset-1 col-md-10">
+                                                <div class="panel panel-info">
+                                                    <div class="panel-heading">
+                                                        <h4 class="panel-title"><b>Liste des utilisateurs</b></h4>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="form-group">
+                                                            <ul class="list-group">
+                                                                <li class="list-group-item">
+                                                                    <div class="row">
+                                                                        <div class="col-md-1">
+                                                                            <b>ID</b>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <b>NOM</b>
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            <b>PRENOM</b>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            <b>MAIL</b>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                            <ul class="list-group">
+                                                                {% for value in static('ListUser', 'getListUser') %}
+                                                                <li class="list-group-item">
+                                                                    <div class="row">
+                                                                        <div class="col-md-1">
+                                                                            {{ value.id|capitalize }}
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            {{ value.nom|capitalize }}
+                                                                        </div>
+                                                                        <div class="col-md-2">
+                                                                            {{ value.prenom|capitalize }}
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            {{ value.mail|capitalize }}
+                                                                        </div>
+                                                                        <div class="col-md-1">
+                                                                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#{{ value.id|capitalize }}">
+                                                                              <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                                                                            </button>
+                                                                            
+                                                                                <div class="modal fade" id="{{ value.id|capitalize }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                                  <div class="modal-dialog" role="document">
+                                                                                    <div class="modal-content">
+                                                                                      <div class="modal-header">
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                        <h4 class="modal-title" id="myModalLabel">Changer le mot de passe de <b>{{ value.prenom|capitalize }} {{ value.nom|capitalize }}</b></h4>
+                                                                                      </div>
+                                                                                      <form  action="{{ urlPath }}/" method="post" >
+                                                                                      <div class="modal-body">
+                                                                                        <div class="form-group">
+                                                                                            
+                                                                                            <label for="exampleInputPassword1">ID</label>
+                                                                                            <input type="text" class="form-control" placeholder="ID" value="{{ value.id|capitalize }}" name="id" readonly>
+                                                                                            <label for="exampleInputPassword1">Mot de Passe</label>
+                                                                                            <input type="text" class="form-control" placeholder="{{ value.password }}"  name="password">
+                                                                                          </div>
+                                                                                          <input type="submit" class="btn btn-info" ><b></b></input>
+                                                                                      </div>
+                                                                                      </form> 
+                                                                                      <div class="modal-footer">
+                                                                                        <button type="button" class="btn btn-info" data-dismiss="modal"><b>Close</b></button>
+                                                                                      </div>
+                                                                                    </div>
+                                                                                  </div>
+                                                                                </div> 
+                                                                             
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
                         </div>
-                      </div>
-
                     </div>
-      			  {% endif %}
-			</div>
-
-          </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container -->
         </div>
-      </div>
-      <!-- /.row -->
-    </div>
-    <!-- /.container -->
-
-  </div>
-  <!-- /#wrapper -->
-
-  <div id="ajax-spinner"><img src="{{ urlPath }}/img/ajax-spinner.svg"></div>
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-  <script src="{{ urlPath }}/js/jquery.number.js"></script>
-  <script src="{{ urlPath }}/js/jquery.tablesorter.js"></script>
-  <script src="{{ urlPath }}/js/jquery.print.js"></script>
-  <script src="{{ urlPath }}/js/bootstrap-tour.js"></script>
-  <script src="{{ urlPath }}/js/darties.js"></script>
-
-</body>
-
+        <!-- /#wrapper -->
+        <div id="ajax-spinner"><img src="{{ urlPath }}/img/ajax-spinner.svg"></div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script src="{{ urlPath }}/js/jquery.number.js"></script>
+        <script src="{{ urlPath }}/js/jquery.tablesorter.js"></script>
+        <script src="{{ urlPath }}/js/jquery.print.js"></script>
+        <script src="{{ urlPath }}/js/bootstrap-tour.js"></script>
+        <script src="{{ urlPath }}/js/darties.js"></script>
+       
+    </body>
 </html>
+
